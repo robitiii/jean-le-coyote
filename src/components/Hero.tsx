@@ -104,36 +104,43 @@ export default function Hero() {
       </motion.div>
 
       {/* 3. CENTER STAGE: COYOTE VISUAL WITH CREATIVE TEXT & CONTROLS OVERLAP */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center mt-4 sm:mt-6">
+      <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center mt-6 sm:mt-8">
         {/* Golden Sunburst Aura behind Coyote */}
         <div
           aria-hidden
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[520px] md:w-[650px] h-[340px] sm:h-[520px] md:h-[650px] rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.28)_0%,rgba(212,175,55,0.08)_45%,transparent_70%)] blur-2xl pointer-events-none"
+          className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] sm:w-[560px] md:w-[700px] h-[380px] sm:h-[560px] md:h-[700px] rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.25)_0%,rgba(212,175,55,0.08)_50%,transparent_70%)] blur-3xl pointer-events-none"
         />
 
         {/* The Coyote Cutout */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
+          initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-          className="relative w-[300px] sm:w-[420px] md:w-[500px] lg:w-[560px] aspect-[4/5] filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.9)] select-none"
+          transition={{ duration: 1, delay: 0.25, ease: "easeOut" }}
+          className="relative w-[340px] sm:w-[460px] md:w-[520px] lg:w-[580px] aspect-square filter drop-shadow-[0_15px_35px_rgba(0,0,0,0.85)] drop-shadow-[0_0_25px_rgba(212,175,55,0.25)] select-none z-10"
         >
           <Image
-            src="/hero-Jean.png"
-            alt="Jean le Coyote wearing a blonde bob wig and French handlebar mustache"
+            src="/jean-hero-standing.png"
+            alt="Jean le Coyote standing full body with blonde bob and French handlebar mustache"
             fill
-            sizes="(max-width: 640px) 300px, (max-width: 768px) 420px, 560px"
+            sizes="(max-width: 640px) 340px, (max-width: 768px) 460px, 580px"
             priority
+            unoptimized
             className="object-contain object-bottom"
+          />
+
+          {/* Golden Aristocratic Platform Glow beneath paws */}
+          <div
+            aria-hidden
+            className="absolute bottom-2 left-1/2 -translate-x-1/2 w-48 sm:w-64 md:w-80 h-5 rounded-full bg-[radial-gradient(ellipse,rgba(212,175,55,0.5)_0%,transparent_70%)] blur-sm pointer-events-none"
           />
         </motion.div>
 
-        {/* CREATIVE OVERLAPPING LUXURY CARD (Draped gracefully over the lower body) */}
+        {/* CREATIVE OVERLAPPING LUXURY CARD (Draped gracefully over the lower paws) */}
         <motion.div
           initial={{ opacity: 0, y: 35 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.45, ease: "easeOut" }}
-          className="relative -mt-16 sm:-mt-24 md:-mt-32 w-full max-w-3xl rounded-3xl p-6 sm:p-8 bg-royal-deep/85 border-2 border-gold/45 backdrop-blur-2xl shadow-[0_30px_70px_rgba(0,0,0,0.85)] animate-gold-pulse text-center"
+          className="relative -mt-8 sm:-mt-12 md:-mt-14 w-full max-w-3xl rounded-3xl p-6 sm:p-8 bg-royal-deep/90 border-2 border-gold/45 backdrop-blur-2xl shadow-[0_30px_70px_rgba(0,0,0,0.85)] animate-gold-pulse text-center z-20"
         >
           {/* Subtle Corner Accents */}
           <span className="absolute top-3 left-4 text-xs text-gold/60">✦</span>
@@ -196,7 +203,7 @@ export default function Hero() {
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
             {/* CTA 1: Join the Hunt */}
             <a
-              href="https://t.me/"
+              href="https://t.me/jeanDeCoyote"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl font-medium tracking-wider uppercase text-sm text-royal bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37] shadow-[0_0_25px_rgba(212,175,55,0.45)] hover:shadow-[0_0_35px_rgba(212,175,55,0.8)] hover:scale-105 active:scale-95 transition-all duration-300 font-serif font-bold"
@@ -207,7 +214,7 @@ export default function Hero() {
 
             {/* CTA 2: Track on X */}
             <a
-              href="https://x.com/"
+              href="https://x.com/Jean_le_Coyote"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl font-medium tracking-wider uppercase text-sm text-gold border-2 border-gold/70 bg-royal/40 hover:bg-gold/15 shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 font-serif font-bold"

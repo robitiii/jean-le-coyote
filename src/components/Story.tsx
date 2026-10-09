@@ -135,26 +135,30 @@ export default function Story() {
         className="pointer-events-none fixed top-0 left-0 z-50 hidden md:block select-none"
       >
         {/* Floating Speech / Thought Bubble */}
-        <div className="absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap px-2.5 py-0.5 rounded-full bg-royal-deep/90 border border-gold/70 shadow-[0_4px_12px_rgba(0,0,0,0.6)] text-[10px] font-mono text-gold-soft tracking-wider backdrop-blur-md">
+        <div className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1 rounded-full bg-royal-deep/95 border border-gold/80 shadow-[0_4px_16px_rgba(0,0,0,0.7)] text-[11px] font-mono text-gold-soft tracking-wider backdrop-blur-md">
           <span>🐾 {bubbleText}</span>
         </div>
 
-        {/* Mini Coyote Avatar Container */}
+        {/* Mini Coyote Standing Figure (Flips based on cursor movement) */}
         <div
           style={{ transform: `scaleX(${facing})` }}
-          className="relative w-16 h-16 rounded-full border-2 border-gold bg-royal-deep/90 shadow-[0_0_20px_rgba(212,175,55,0.6)] backdrop-blur-md overflow-hidden transition-transform duration-150"
+          className="relative w-20 h-20 transition-transform duration-150 filter drop-shadow-[0_8px_16px_rgba(212,175,55,0.7)] drop-shadow-[0_4px_10px_rgba(0,0,0,0.9)]"
         >
-          {/* Subtle golden aura glow */}
-          <div className="absolute inset-0 bg-radial from-gold/30 via-transparent to-transparent pointer-events-none" />
+          {/* Subtle golden aura glow behind figure */}
+          <div className="absolute inset-0 bg-radial from-gold/30 via-transparent to-transparent pointer-events-none blur-sm" />
 
-          {/* Mini Jean Portrait */}
+          {/* Mini Jean Cutout */}
           <Image
-            src="/hero-Jean.png"
-            alt="Mini Jean le Coyote"
+            src="/jean-hero-standing.png"
+            alt="Mini Jean le Coyote cursor follower"
             fill
-            sizes="64px"
-            className="object-contain scale-[1.3] translate-y-1"
+            sizes="80px"
+            unoptimized
+            className="object-contain"
           />
+
+          {/* Golden aristocratic shadow ring under paws */}
+          <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-14 h-2 rounded-full bg-gold/40 blur-[2px]" />
         </div>
       </motion.div>
 
@@ -354,17 +358,28 @@ export default function Story() {
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
-                href="https://t.me/"
+                href="https://t.me/jeanDeCoyote"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-gold to-gold-soft text-royal font-serif font-bold text-sm uppercase tracking-wider hover:scale-105 transition-transform"
               >
                 Join Telegram
               </a>
+              <a
+                href="https://x.com/Jean_le_Coyote"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-2.5 rounded-xl border border-gold/60 text-gold font-serif font-semibold text-sm uppercase tracking-wider hover:bg-gold/10 transition-colors flex items-center justify-center gap-1.5"
+              >
+                <span>Follow X</span>
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+              </a>
               <button
                 type="button"
                 onClick={() => setActiveModal(null)}
-                className="px-6 py-2.5 rounded-xl border border-gold/50 text-gold font-serif font-semibold text-sm uppercase tracking-wider hover:bg-gold/10 transition-colors"
+                className="px-5 py-2.5 rounded-xl border border-offwhite/20 text-offwhite/70 font-serif font-semibold text-sm uppercase tracking-wider hover:bg-white/5 transition-colors"
               >
                 Close
               </button>
