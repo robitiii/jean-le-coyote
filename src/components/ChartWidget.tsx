@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTokenData } from "@/hooks/useTokenData";
 
 interface Trade {
   id: string;
@@ -82,12 +83,12 @@ const initialTrades: Trade[] = [
 ];
 
 export default function ChartWidget() {
+  const { isLive, priceUsd, priceChange24h, chartEmbedUrl, contractAddress } = useTokenData();
   const [activeTab, setActiveTab] = useState<"CHART" | "TRADES">("CHART");
   const [activeTimeframe, setActiveTimeframe] = useState("15M");
   const [tradeFilter, setTradeFilter] = useState<"ALL" | "WHALES" | "BUYS">("ALL");
   const [trades, setTrades] = useState<Trade[]>(initialTrades);
   const [copied, setCopied] = useState(false);
-  const contractAddress = "LAUNCHING_SOON_ON_PUMP_FUN";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(contractAddress);
@@ -184,7 +185,7 @@ export default function ChartWidget() {
               Pair
             </span>
             <span className="font-serif text-xl sm:text-2xl font-bold text-gold">
-              JEAN / SOL
+              CLJEAN / SOL
             </span>
             <span className="text-[11px] font-mono text-emerald-400 block mt-0.5">
               Raydium &bull; Pump.fun
@@ -246,15 +247,23 @@ export default function ChartWidget() {
               <div>
                 <div className="flex items-center gap-2">
                   <span className="font-serif font-bold text-offwhite text-sm sm:text-base">
-                    JEAN / SOL
+                    CLJEAN / SOL
                   </span>
-                  <span className="text-[11px] font-mono px-1.5 py-0.2 rounded bg-gold/20 text-gold-soft border border-gold/40">
-                    DEXSCREENER
-                  </span>
+                  <a
+                    href={`https://dexscreener.com/solana/${contractAddress}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[11px] font-mono px-2 py-0.5 rounded bg-gold/20 text-gold hover:bg-gold/30 border border-gold/40 flex items-center gap-1 transition-colors"
+                  >
+                    <span>DEXSCREENER</span>
+                    <span>↗</span>
+                  </a>
                 </div>
                 <div className="flex items-center gap-2 text-xs font-mono">
-                  <span className="text-gold font-bold">$0.00142069</span>
-                  <span className="text-emerald-400 font-semibold">+42.8%</span>
+                  <span className="text-gold font-bold">{priceUsd || "$0.00142069"}</span>
+                  <span className={priceChange24h !== null && priceChange24h < 0 ? "text-red-400 font-semibold" : "text-emerald-400 font-semibold"}>
+                    {priceChange24h !== null ? `${priceChange24h >= 0 ? "+" : ""}${priceChange24h}%` : "+42.8%"}
+                  </span>
                 </div>
               </div>
             </div>
@@ -316,10 +325,19 @@ export default function ChartWidget() {
             )}
           </div>
 
-          {/* TAB 1: CHART BODY / PLACEHOLDER STAGE */}
+          {/* TAB 1: CHART BODY / LIVE DEXSCREENER OR AWAITING STAGE */}
           {activeTab === "CHART" && (
-            <div className="relative h-[440px] sm:h-[500px] w-full flex flex-col items-center justify-center p-6 text-center overflow-hidden">
-              {/* Background Grid Pattern (TradingView Style) */}
+            chartEmbedUrl ? (
+              <div className="relative w-full h-[500px] sm:h-[620px] bg-black">
+                <iframe
+                  src={chartEmbedUrl}
+                  title="CLJEAN DexScreener Live Chart"
+                  className="w-full h-full border-0"
+                />
+              </div>
+            ) : (
+              <div className="relative h-[440px] sm:h-[500px] w-full flex flex-col items-center justify-center p-6 text-center overflow-hidden">
+                {/* Background Grid Pattern (TradingView Style) */}
               <div
                 aria-hidden
                 className="absolute inset-0 bg-[linear-gradient(to_right,rgba(212,175,55,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(212,175,55,0.06)_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none"
@@ -395,7 +413,7 @@ export default function ChartWidget() {
                 <span className="text-gold">EMBEDDED DEXSCREENER IFRAME READY</span>
               </div>
             </div>
-          )}
+          ))}
 
           {/* TAB 2: LIVE TRADES FEED */}
           {activeTab === "TRADES" && (
@@ -450,7 +468,7 @@ export default function ChartWidget() {
                 <span>Type</span>
                 <span>USD ($)</span>
                 <span>SOL</span>
-                <span className="hidden sm:inline">Amount ($JEAN)</span>
+                <span className="hidden sm:inline">Amount ($CLJEAN)</span>
                 <span>Price</span>
                 <span className="text-right">Maker</span>
               </div>

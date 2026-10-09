@@ -3,10 +3,11 @@
 import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useTokenData } from "@/hooks/useTokenData";
 
 export default function Hero() {
+  const { marketCap, priceChange24h, contractAddress } = useTokenData();
   const [copied, setCopied] = useState(false);
-  const contractAddress = "LAUNCHING_SOON_ON_PUMP_FUN";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(contractAddress);
@@ -61,7 +62,7 @@ export default function Hero() {
           {/* Central Divider / Token Tag */}
           <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-gold-soft/80 tracking-wider">
             <span className="text-gold">✦</span>
-            <span>$JEAN</span>
+            <span>$CLJEAN</span>
             <span className="text-gold/50">|</span>
             <span>SOLANA</span>
           </div>
@@ -72,10 +73,10 @@ export default function Hero() {
               Marketcap:
             </span>
             <span className="font-mono text-sm sm:text-base font-bold text-gold tracking-wide drop-shadow-[0_0_10px_rgba(212,175,55,0.5)]">
-              $1,420,690
+              {marketCap ? `$${marketCap.toLocaleString()}` : "$1,420,690"}
             </span>
-            <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-              +42.8%
+            <span className={`text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded ${priceChange24h !== null && priceChange24h < 0 ? "bg-red-500/20 text-red-400 border border-red-500/30" : "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"}`}>
+              {priceChange24h !== null ? `${priceChange24h >= 0 ? "+" : ""}${priceChange24h}%` : "+42.8%"}
             </span>
           </div>
         </div>
@@ -200,27 +201,38 @@ export default function Hero() {
           </div>
 
           {/* Luxury CTA Action Buttons */}
-          <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
-            {/* CTA 1: Join the Hunt */}
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+            {/* CTA 1: Buy on Pump.fun */}
+            <a
+              href={`https://pump.fun/coin/${contractAddress}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl font-medium tracking-wider uppercase text-sm text-royal bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37] shadow-[0_0_25px_rgba(212,175,55,0.45)] hover:shadow-[0_0_35px_rgba(212,175,55,0.8)] hover:scale-105 active:scale-95 transition-all duration-300 font-serif font-bold"
+            >
+              <span>💊</span>
+              <span>Buy on Pump.fun</span>
+            </a>
+
+            {/* CTA 2: Telegram */}
             <a
               href="https://t.me/jeanDeCoyote"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl font-medium tracking-wider uppercase text-sm text-royal bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37] shadow-[0_0_25px_rgba(212,175,55,0.45)] hover:shadow-[0_0_35px_rgba(212,175,55,0.8)] hover:scale-105 active:scale-95 transition-all duration-300 font-serif font-bold"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium tracking-wider uppercase text-sm text-gold border-2 border-gold/70 bg-royal/60 hover:bg-gold/15 shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:scale-105 active:scale-95 transition-all duration-300 font-serif font-bold"
             >
               <span>✦</span>
-              <span>Join the Hunt (Telegram)</span>
+              <span>Join Telegram</span>
             </a>
 
-            {/* CTA 2: Track on X */}
+            {/* CTA 3: Track on X */}
             <a
               href="https://x.com/Jean_le_Coyote"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl font-medium tracking-wider uppercase text-sm text-gold border-2 border-gold/70 bg-royal/40 hover:bg-gold/15 shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 font-serif font-bold"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium tracking-wider uppercase text-sm text-gold border-2 border-gold/70 bg-royal/60 hover:bg-gold/15 shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:scale-105 active:scale-95 transition-all duration-300 font-serif font-bold"
             >
               <span>Track on X</span>
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
             </a>
