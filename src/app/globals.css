@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+:root {
+  --royal-blue: #0b132b;
+  --royal-blue-deep: #070d20;
+  --gold: #d4af37;
+  --gold-soft: #e9cf7a;
+  --off-white: #f8f9fa;
+}
+
+@theme inline {
+  --color-royal: var(--royal-blue);
+  --color-royal-deep: var(--royal-blue-deep);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-offwhite: var(--off-white);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-cormorant);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--royal-blue);
+  color: var(--off-white);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-cormorant), Georgia, serif;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--royal-blue);
+}
+
+/* Slow floating drift used by ambient background */
+@keyframes drift-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(2.5%, -4%, 0) scale(1.08);
+  }
+}
+
+.animate-drift-slow {
+  animation: drift-slow 26s ease-in-out infinite;
+}
+
+.animate-drift-slower {
+  animation: drift-slow 38s ease-in-out infinite reverse;
+}
+
+/* Floating croissant animations */
+@keyframes float-croissant-1 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(-24px) rotate(16deg) scale(1.08);
+  }
+}
+
+@keyframes float-croissant-2 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(-18px) rotate(-14deg) scale(1.05);
+  }
+}
+
+@keyframes float-croissant-3 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(-30px) rotate(22deg) scale(1.1);
+  }
+}
+
+.animate-float-croissant-1 {
+  animation: float-croissant-1 9s ease-in-out infinite;
+}
+
+.animate-float-croissant-2 {
+  animation: float-croissant-2 12s ease-in-out infinite 2.5s;
+}
+
+.animate-float-croissant-3 {
+  animation: float-croissant-3 10s ease-in-out infinite 4s;
+}
+
+/* Subtle gold pulse glow */
+@keyframes gold-pulse {
+  0%, 100% {
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.55);
+  }
+}
+
+.animate-gold-pulse {
+  animation: gold-pulse 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-drift-slow,
+  .animate-drift-slower,
+  .animate-float-croissant-1,
+  .animate-float-croissant-2,
+  .animate-float-croissant-3,
+  .animate-gold-pulse {
+    animation: none;
+  }
+}
